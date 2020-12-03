@@ -10,7 +10,7 @@ from models.transaction_models import TransactionIn, TransactionOut
 
 import datetime
 from fastapi import FastAPI
-from fastapi import HTTPException
+from fastapi import HTTPException 
 
 api = FastAPI()
 
