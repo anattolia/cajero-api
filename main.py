@@ -1,5 +1,5 @@
 from db.user_db import UserInDB
-from db.user_db import update_user, get_user
+from db.user_db import update_user, get_user, create_user
 
 from db.transaction_db import TransacionInDb
 from db.transaction_db import save_transaction
@@ -60,3 +60,14 @@ async def make_transaction(transaction_in: TransactionIn):
 
     transaction_out = TransactionOut(**transaction_in_db.dict())
     return transaction_out
+
+
+@api.put("/user/create/")
+async def user_create(user_in: UserIn):
+    user_in_db = get_user(user_in.username)
+    if user_in_db == None:
+        user_in_db = create_user(user_in)
+        
+    user_out = UserIn(**user_in_db.dict())
+   # return user_out.username
+    return {"Creado": True}
