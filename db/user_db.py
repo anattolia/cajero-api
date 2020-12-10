@@ -27,18 +27,10 @@ def update_user(user_in_db: UserInDB):
     database_users[user_in_db.username] = user_in_db
     return user_in_db
 
-database_users_list = []
-generator = {"username":"Juan",
-              "password":"hola2",
-              
-              }
+def create_user(new_user_in_db: UserInDB):
+    database_users[new_user_in_db.username]= new_user_in_db
+    return new_user_in_db
 
-def create_user(user_in_db: UserInDB):
-    generator["username", "password"] = generator
-    user_in_db.username = generator["username"]
-    user_in_db.password = generator["password"]
-  
-    database_users_list.append(user_in_db)
-    return user_in_db
-
+def get_all_users():
+    return database_users.values()        
 
