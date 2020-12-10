@@ -1,11 +1,8 @@
 from db.user_db import UserInDB
-from db.user_db import update_user, get_user, create_user
-
+from db.user_db import update_user, get_user, create_user, get_all_users
 from db.transaction_db import TransacionInDb
 from db.transaction_db import save_transaction
-
-from models.user_models import UserIn, UserOut
-
+from models.user_models import UserIn, UserOut, UserInCreate
 from models.transaction_models import TransactionIn, TransactionOut
 
 import datetime
@@ -21,7 +18,7 @@ origins = [
 "https://localhost.tiangolo.com",
 "http://localhost", 
 "http://localhost:8080", 
-"https://cajero-app-antonia.herokuapp.com"
+"https://cajero-app-antonia.herokuapp.com",
 ]
 api.add_middleware(
 CORSMiddleware, allow_origins=origins,
@@ -85,3 +82,12 @@ async def user_create(user_in: UserIn):
     user_out = UserIn(**user_in_db.dict())
    # return user_out.username
     return {"Creado": True}
+
+@api.get("/user/list")
+async def list_users():
+    users_in_db=get_all_users()
+    users_out=[]
+    for user in users_in_db:
+        user_out = UserOut(**user.dict())
+        users_out.append(user_out)
+    return users_out 
